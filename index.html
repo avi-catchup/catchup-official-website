@@ -627,4 +627,232 @@ const reviews = [
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
+
+<!-- Apna Barber Chatbot -->
+<div id="chatbot">
+  <div id="chat-header" onclick="toggleChat()">💬 Apna Barber Chat</div>
+  <div id="chat-body">
+    <div id="messages"></div>
+    <div id="input-area">
+      <input type="text" id="userInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter'){sendMessage();}" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    <button id="downloadApp" onclick="openPlayStore()">📲 Download App</button>
+  </div>
+</div>
+
+<!-- Chatbot Styles -->
+<style>
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 340px;
+  font-family: 'Roboto', sans-serif;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+  border-radius: 25px;
+  overflow: hidden;
+  background: #fff;
+  z-index: 9999;
+  transition: all 0.4s ease;
+}
+
+#chat-header {
+  background: linear-gradient(90deg, #ff4d4d, #ff8080);
+  color: #fff;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  font-size: 16px;
+  user-select: none;
+  transition: background 0.3s ease;
+}
+#chat-header:hover {
+  background: linear-gradient(90deg, #ff1a1a, #ff6666);
+}
+
+#chat-body {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease, padding 0.5s ease;
+}
+#chatbot.open #chat-body {
+  max-height: 500px;
+  padding: 15px;
+}
+
+#messages {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  margin: 5px 0;
+  padding: 12px 18px;
+  border-radius: 25px;
+  max-width: 80%;
+  word-wrap: break-word;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.3s forwards;
+  transition: background 0.3s ease;
+}
+.message:hover {
+  background: #e6e6e6;
+}
+
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.user { 
+  background: #ffe5e5; 
+  align-self: flex-end; 
+}
+.bot { 
+  background: #f2f2f2; 
+  align-self: flex-start; 
+}
+
+#input-area {
+  display: flex;
+  margin-top: 10px;
+}
+#userInput {
+  padding: 10px;
+  flex: 1;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.3s;
+}
+#userInput:focus {
+  border-color: #ff4d4d;
+}
+
+button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 15px;
+  background: #ff4d4d;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  margin-left: 5px;
+  transition: background 0.3s ease, transform 0.2s;
+}
+button:hover {
+  background: #ff1a1a;
+  transform: scale(1.05);
+}
+
+#downloadApp {
+  margin-top: 10px;
+  width: 100%;
+  text-align: center;
+  background: linear-gradient(90deg, #ff4d4d, #ff8080);
+  font-size: 16px;
+}
+#downloadApp:hover {
+  background: linear-gradient(90deg, #ff1a1a, #ff6666);
+}
+
+/* Scrollbar */
+#messages::-webkit-scrollbar {
+  width: 6px;
+}
+#messages::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 3px;
+}
+</style>
+
+<!-- Chatbot Script -->
+<script>
+const messagesDiv = document.getElementById('messages');
+const chatbotDiv = document.getElementById('chatbot');
+
+// Toggle chat open/close
+function toggleChat() {
+  chatbotDiv.classList.toggle('open');
+}
+
+// Typing effect for bot
+function botReply(message) {
+  const botMsg = document.createElement('div');
+  botMsg.className = 'message bot';
+  messagesDiv.appendChild(botMsg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+  let i = 0;
+  function type() {
+    if (i < message.length) {
+      botMsg.innerHTML += message.charAt(i);
+      i++;
+      setTimeout(type, 20);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+  }
+  type();
+}
+
+// Log user message to SheetDB
+async function logToSheetDB(userMessage) {
+  const sheetDB_URL = 'YOUR_SHEETDB_API_URL_HERE'; // Replace with your SheetDB URL
+  try {
+    await fetch(sheetDB_URL, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({data: {message: userMessage, date: new Date().toISOString()}})
+    });
+  } catch (err) {
+    console.error('Error logging to SheetDB:', err);
+  }
+}
+
+// Send user message
+function sendMessage() {
+  const userInput = document.getElementById('userInput');
+  const msg = userInput.value.trim();
+  if (!msg) return;
+
+  // User message
+  const userMsg = document.createElement('div');
+  userMsg.className = 'message user';
+  userMsg.textContent = msg;
+  messagesDiv.appendChild(userMsg);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+  // Log to SheetDB
+  logToSheetDB(msg);
+
+  userInput.value = '';
+
+  const lowerMsg = msg.toLowerCase();
+
+  // Bot response logic
+  if (lowerMsg.includes('book')) {
+    botReply('Sure! You can book an appointment here: <a href="https://apnabarber.com/book" target="_blank">Book Now</a> 📅');
+  } else if (lowerMsg.includes('services')) {
+    botReply('We offer Haircut, Beard Trim, Shaving & more. Check all services: <a href="https://apnabarber.com/services" target="_blank">View Services</a> 💈');
+  } else if (lowerMsg.includes('contact')) {
+    botReply('Reach us at 📞 +91-XXXXXXXXXX or ✉️ support@apnabarber.com');
+  } else {
+    botReply('Hi! I am Apna Barber Bot 🤖. Ask me about bookings, services, contact info, or our app.');
+  }
+}
+
+// Open Play Store app link
+function openPlayStore() {
+  window.open('https://play.google.com/store/apps/details?id=com.barber.apna.apnabarber&pcampaignid=web_share', '_blank');
+}
+</script>
+
+
+
 </html>
