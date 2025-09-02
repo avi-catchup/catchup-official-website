@@ -40,16 +40,7 @@
                     <!-- <img src="img/logo.png" alt="Logo"> -->
 
 
-     <h1 class="m-0" style="font-size: 1.8rem; font-weight: 600; color:#000; background-color: #fff; display: inline-block; padding: 5px 15px; border-radius: 5px;">
-        Inspired by 
-        <span style="color:#0057B7; font-weight:bold;">Shark</span> 
-        <span style="color:#0057B7; font-weight:bold;">Tank</span> 
-        <span style="color:#FFD700; font-weight:bold;">India</span>
-    </h1>
-    <br>
-        <p style="font-size:0.9rem; color:#fff; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; margin-top:8px; display:inline-block;">
-                Highly inspired by the journey of entrepreneurs; hustling to one day say 'Hum bhi bana lenge'
-            </p>
+     
 
                 </a>
 
@@ -81,6 +72,20 @@
                 <div class="container px-lg-5">
                     <div class="row g-5">
                         <div class="col-lg-8 text-center text-lg-start">
+
+  <h1 class="m-0" style="font-size: 1.8rem; font-weight: 600; color:#000; background-color: #fff; display: inline-block; padding: 5px 15px; border-radius: 5px;">
+        Inspired by 
+        <span style="color:#0057B7; font-weight:bold;">Shark</span> 
+        <span style="color:#0057B7; font-weight:bold;">Tank</span> 
+        <span style="color:#FFD700; font-weight:bold;">India</span>
+    </h1>
+    <br>
+        <p style="font-size:0.9rem; color:#fff; background:rgba(0,0,0,0.6); padding:5px 10px; border-radius:5px; margin-top:8px; display:inline-block;">
+                Highly inspired by the journey of entrepreneurs; hustling to one day say 'Hum bhi bana lenge'
+            </p>
+
+
+
                             <h1 class="text-white mb-4 animated slideInDown">Apna Barber: एक नई शुरुआत – आप और आपके बार्बर साथ</h1>
                             <p class="text-white pb-3 animated slideInDown">अब कोई लाइन में खड़ा होने की ज़रूरत नहीं।
 Apna Barber के साथ आप घर बैठे ही अपनी समय अनुसार अपॉइंटमेंट बुक कर सकते हैं। हमारे अनुभवी और भरोसेमंद बार्बर आपके लिए पेशेवर स्टाइल और ग्रूमिंग सुनिश्चित करेंगे। हम सिर्फ सर्विस नहीं दे रहे – हम आपकी रोज़मर्रा की ग्रूमिंग का अनुभव बदल रहे हैं।</p>
@@ -641,48 +646,61 @@ const reviews = [
   </div>
 </div>
 
+
 <!-- Chatbot Styles -->
 <style>
 #chatbot {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 340px;
-  font-family: 'Roboto', sans-serif;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-  border-radius: 25px;
+  width: 320px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+  border-radius: 20px;
   overflow: hidden;
   background: #fff;
   z-index: 9999;
   transition: all 0.4s ease;
+  border: 1px solid #eaeaea;
 }
 
+/* Header */
 #chat-header {
-  background: linear-gradient(90deg, #ff4d4d, #ff8080);
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
   color: #fff;
-  padding: 15px;
-  font-weight: bold;
+  padding: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
   cursor: pointer;
-  text-align: center;
-  font-size: 16px;
   user-select: none;
-  transition: background 0.3s ease;
+  gap: 8px;
+}
+#chat-header img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  padding: 3px;
 }
 #chat-header:hover {
-  background: linear-gradient(90deg, #ff1a1a, #ff6666);
+  background: linear-gradient(135deg, #3f45b2, #7c83f7);
 }
 
+/* Chat body */
 #chat-body {
   display: flex;
   flex-direction: column;
-  padding: 15px;
+  padding: 0;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease, padding 0.5s ease;
 }
 #chatbot.open #chat-body {
-  max-height: 500px;
-  padding: 15px;
+  max-height: 480px;
+  padding: 14px;
 }
 
 #messages {
@@ -691,81 +709,101 @@ const reviews = [
   margin-bottom: 10px;
 }
 
+/* Messages */
 .message {
-  margin: 5px 0;
-  padding: 12px 18px;
-  border-radius: 25px;
+  margin: 6px 0;
+  padding: 10px 16px;
+  border-radius: 18px;
   max-width: 80%;
   word-wrap: break-word;
   opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.3s forwards;
-  transition: background 0.3s ease;
+  transform: translateY(15px);
+  animation: fadeInUp 0.35s forwards;
 }
-.message:hover {
-  background: #e6e6e6;
+.user { 
+  background: #e6f0ff; 
+  align-self: flex-end; 
+}
+.bot { 
+  background: #f7f7f7; 
+  align-self: flex-start; 
+  position: relative;
+  padding-left: 40px;
+}
+.bot::before {
+  content: "🤖";
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes fadeInUp {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.user { 
-  background: #ffe5e5; 
-  align-self: flex-end; 
+/* Input area */
+#input-area {
+  display: none; /* hidden by default */
+  margin-top: 10px;
+  border-top: 1px solid #ddd;
+  padding-top: 8px;
+  background: #fafafa;
+  border-radius: 12px;
 }
-.bot { 
-  background: #f2f2f2; 
-  align-self: flex-start; 
+#chatbot.open #input-area {
+  display: flex; /* show only when chat is open */
 }
 
-#input-area {
-  display: flex;
-  margin-top: 10px;
-}
 #userInput {
   padding: 10px;
   flex: 1;
-  border-radius: 15px;
+  border-radius: 12px;
   border: 1px solid #ccc;
   outline: none;
-  transition: border 0.3s;
+  font-size: 14px;
+  background: #fff;
 }
 #userInput:focus {
-  border-color: #ff4d4d;
+  border-color: #4e54c8;
+  box-shadow: 0 0 3px rgba(78,84,200,0.5);
 }
-
 button {
-  padding: 10px 18px;
+  padding: 10px 16px;
   border: none;
-  border-radius: 15px;
-  background: #ff4d4d;
+  border-radius: 12px;
+  background: #4e54c8;
   color: #fff;
   cursor: pointer;
-  font-weight: bold;
-  margin-left: 5px;
+  font-weight: 600;
+  margin-left: 6px;
+  font-size: 14px;
   transition: background 0.3s ease, transform 0.2s;
 }
 button:hover {
-  background: #ff1a1a;
+  background: #3f45b2;
   transform: scale(1.05);
 }
 
-#downloadApp {
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-  background: linear-gradient(90deg, #ff4d4d, #ff8080);
-  font-size: 16px;
+/* Download button */
+.download-btn {
+  display: inline-block;
+  padding: 10px 14px;
+  margin-top: 6px;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  color: #fff;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s;
 }
-#downloadApp:hover {
-  background: linear-gradient(90deg, #ff1a1a, #ff6666);
+.download-btn:hover {
+  background: linear-gradient(135deg, #3f45b2, #7c83f7);
 }
 
 /* Scrollbar */
-#messages::-webkit-scrollbar {
-  width: 6px;
-}
+#messages::-webkit-scrollbar { width: 6px; }
 #messages::-webkit-scrollbar-thumb {
   background: rgba(0,0,0,0.2);
   border-radius: 3px;
@@ -777,81 +815,86 @@ button:hover {
 const messagesDiv = document.getElementById('messages');
 const chatbotDiv = document.getElementById('chatbot');
 
-// Toggle chat open/close
 function toggleChat() {
   chatbotDiv.classList.toggle('open');
 }
 
-// Typing effect for bot
-function botReply(message) {
+function botReply(message, isHTML=false) {
   const botMsg = document.createElement('div');
   botMsg.className = 'message bot';
   messagesDiv.appendChild(botMsg);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
   let i = 0;
-  function type() {
-    if (i < message.length) {
-      botMsg.innerHTML += message.charAt(i);
-      i++;
-      setTimeout(type, 20);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+  const speed = 30; // typing speed
+  if (isHTML) {
+    const tempText = message.replace(/<[^>]*>?/gm, ""); 
+    function typeWriter() {
+      if (i < tempText.length) {
+        botMsg.textContent += tempText.charAt(i);
+        i++;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        setTimeout(typeWriter, speed);
+      } else {
+        botMsg.innerHTML = message;
+      }
     }
-  }
-  type();
-}
-
-// Log user message to SheetDB
-async function logToSheetDB(userMessage) {
-  const sheetDB_URL = 'YOUR_SHEETDB_API_URL_HERE'; // Replace with your SheetDB URL
-  try {
-    await fetch(sheetDB_URL, {
-      method: 'POST',
-      headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({data: {message: userMessage, date: new Date().toISOString()}})
-    });
-  } catch (err) {
-    console.error('Error logging to SheetDB:', err);
+    typeWriter();
+  } else {
+    function typeWriter() {
+      if (i < message.length) {
+        botMsg.textContent += message.charAt(i);
+        i++;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        setTimeout(typeWriter, speed);
+      }
+    }
+    typeWriter();
   }
 }
 
-// Send user message
 function sendMessage() {
   const userInput = document.getElementById('userInput');
   const msg = userInput.value.trim();
   if (!msg) return;
 
-  // User message
   const userMsg = document.createElement('div');
   userMsg.className = 'message user';
   userMsg.textContent = msg;
   messagesDiv.appendChild(userMsg);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 
-  // Log to SheetDB
-  logToSheetDB(msg);
-
   userInput.value = '';
+  handleBotLogic(msg.toLowerCase());
+}
 
-  const lowerMsg = msg.toLowerCase();
-
-  // Bot response logic
-  if (lowerMsg.includes('book')) {
-    botReply('Sure! You can book an appointment here: <a href="https://apnabarber.com/book" target="_blank">Book Now</a> 📅');
-  } else if (lowerMsg.includes('services')) {
-    botReply('We offer Haircut, Beard Trim, Shaving & more. Check all services: <a href="https://apnabarber.com/services" target="_blank">View Services</a> 💈');
-  } else if (lowerMsg.includes('contact')) {
-    botReply('Reach us at 📞 +91-XXXXXXXXXX or ✉️ support@apnabarber.com');
+function handleBotLogic(msg) {
+  if (msg.includes('download') || msg.includes('app') || msg.includes('android')) {
+    botReply('📲 Our app is completely FREE on Google Play!<br><a href="https://play.google.com/store/apps/details?id=com.barber.apna.apnabarber" target="_blank" class="download-btn">Download Apna Barber</a>', true);
+  } else if (msg.includes('ios') || msg.includes('iphone') || msg.includes('apple')) {
+    botReply('🍏 iOS version will be available soon. Stay tuned!');
+  } else if (msg.includes('contact') || msg.includes('support') || msg.includes('help')) {
+    botReply('📧 You can reach us at <strong>apnabarberofficials@gmail.com</strong><br>or get in touch via our <a href="https://apnabarber.com/contact" target="_blank">Contact Page</a>.', true);
+  } else if (msg.includes('hi') || msg.includes('hello')) {
+    botReply('Hello 👋 I am Apna Barber Bot. Ask me about our app, download links, iOS release, or contact info.');
   } else {
-    botReply('Hi! I am Apna Barber Bot 🤖. Ask me about bookings, services, contact info, or our app.');
+    botReply('Hi! I can help you with our app 📲. Ask about downloading, iOS availability, or how to contact us.');
   }
 }
-
-// Open Play Store app link
-function openPlayStore() {
-  window.open('https://play.google.com/store/apps/details?id=com.barber.apna.apnabarber&pcampaignid=web_share', '_blank');
-}
 </script>
+
+<!-- Chatbot HTML -->
+<div id="chatbot">
+  <div id="chat-header" onclick="toggleChat()">
+    <img src="https://i.ibb.co/tCxn1KP/bot-avatar.png" alt="Bot"> Apna Barber Bot
+  </div>
+  <div id="chat-body">
+    <div id="messages"></div>
+    <div id="input-area">
+      <input type="text" id="userInput" placeholder="Type your message..." onkeydown="if(event.key==='Enter') sendMessage()"/>
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
 
 
 
